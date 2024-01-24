@@ -5,6 +5,7 @@ import 'package:flutter_hotel_reservation_system/models/hotel.dart';
 
 class HotelCardList extends StatelessWidget {
   final List<Hotel> hotels;
+
   const HotelCardList({super.key, required this.hotels});
 
   @override
@@ -19,8 +20,8 @@ class HotelCardList extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                     builder: (context) => HotelPage(
-                          hotelName: hotels[index].name, image: hotels[index].imageUrl,
-
+                          hotelName: hotels[index].name,
+                          image: hotels[index].imageUrl,
                         )));
 
             print('Clicked on ${hotels[index].name}');
