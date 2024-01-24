@@ -3,7 +3,10 @@ import 'package:flutter_hotel_reservation_system/api/auth.dart';
 import 'package:flutter_hotel_reservation_system/screens/registration_page.dart';
 import 'package:flutter_hotel_reservation_system/screens/dashboard.dart';
 import 'package:flutter_hotel_reservation_system/widget_items/custom_text_field.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../api/providers/user_provider.dart';
 
 
 void main() {
@@ -155,7 +158,11 @@ class _LoginPageState extends State<LoginPage> {
                               final String token = response['token'];
                               final SharedPreferences prefs = await SharedPreferences.getInstance();
                               prefs.setString('userToken', token);
+
+                              await Provider.of<UserProvider>(context, listen: false).fetchAndSetUser();
+
                               Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardPage()));
+
 
                             } else {
                               setState(() {

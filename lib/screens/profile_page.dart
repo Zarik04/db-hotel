@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hotel_reservation_system/api/providers/user_provider.dart';
 import 'package:flutter_hotel_reservation_system/screens/reservations_page.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/guest.dart';
 import '../widget_items/drawer_menu.dart';
@@ -11,7 +14,7 @@ class ProfilePage extends StatefulWidget {
 
   const ProfilePage({super.key, required this.guest});
 
-  static bool isPasswordHidden = true;
+  // static bool isPasswordHidden = true;
 
   @override
   State<ProfilePage> createState() => _ProfilePageState();
@@ -139,49 +142,49 @@ class _ProfilePageState extends State<ProfilePage> {
                   )
                 ],
               ),
-              const SizedBox(
-                height: 8,
-              ),
-              Row(
-                children: [
-                  const Text(
-                    'Password:',
-                    style: TextStyle(
-                      color: ProfilePage.labelThemeColor,
-                      fontSize: 25,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    ProfilePage.isPasswordHidden
-                        ? '*' * widget.guest.password!.length
-                        : widget.guest.password!,
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: ProfilePage.valueThemeColor,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  IconButton.filled(
-                    splashColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onPressed: () {
-                      setState(() {
-                        ProfilePage.isPasswordHidden = !ProfilePage.isPasswordHidden;
-                      });
-                    },
-                    icon: Icon(
-                      ProfilePage.isPasswordHidden? Icons.visibility:Icons.visibility_off,
-                    ),
-                  )
-                ],
-              ),
+              // const SizedBox(
+              //   height: 8,
+              // ),
+              // Row(
+              //   children: [
+              //     const Text(
+              //       'Password:',
+              //       style: TextStyle(
+              //         color: ProfilePage.labelThemeColor,
+              //         fontSize: 25,
+              //         fontWeight: FontWeight.w600,
+              //       ),
+              //     ),
+              //     const SizedBox(
+              //       width: 10,
+              //     ),
+              //     Text(
+              //       ProfilePage.isPasswordHidden
+              //           ? '*' * widget.guest.password!.length
+              //           : widget.guest.password!,
+              //       style: TextStyle(
+              //         fontSize: 20,
+              //         color: ProfilePage.valueThemeColor,
+              //         fontWeight: FontWeight.w400,
+              //       ),
+              //     ),
+              //     const SizedBox(
+              //       width: 15,
+              //     ),
+              //     IconButton.filled(
+              //       splashColor: Colors.transparent,
+              //       highlightColor: Colors.transparent,
+              //       onPressed: () {
+              //         setState(() {
+              //           ProfilePage.isPasswordHidden = !ProfilePage.isPasswordHidden;
+              //         });
+              //       },
+              //       icon: Icon(
+              //         ProfilePage.isPasswordHidden? Icons.visibility:Icons.visibility_off,
+              //       ),
+              //     )
+              //   ],
+              // ),
               const SizedBox(height: 24),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(

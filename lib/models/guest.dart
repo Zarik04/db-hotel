@@ -21,7 +21,7 @@ class Guest {
     this.firstName,
     this.lastName,
     this.gender,
-    this.imagePath,
+    // this.imagePath,
     this.email,
     this.passportNumber,
     this.birthDate,

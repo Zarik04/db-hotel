@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hotel_reservation_system/api/providers/user_provider.dart';
 import 'package:flutter_hotel_reservation_system/screens/intro_page.dart';
+import 'package:provider/provider.dart';
 
 void main(){
-  runApp(const HomeApp());
+  runApp(ChangeNotifierProvider(
+    create: (context) => UserProvider(),
+    child: const HomeApp(),
+  ),);
 }
 
 class HomeApp extends StatelessWidget {
