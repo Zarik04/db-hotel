@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hotel_reservation_system/hotels_details.dart';
+import 'package:flutter_hotel_reservation_system/screens/hotels_details.dart';
 import 'package:flutter_hotel_reservation_system/widget_items/hotel_card_view.dart';
 import 'package:flutter_hotel_reservation_system/models/hotel.dart';
 
@@ -19,12 +19,9 @@ class HotelCardList extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => HotelPage(
-                          hotelName: hotels[index].name,
-                          image: hotels[index].imageUrl,
-                        )));
+                    builder: (context) => HotelPage(hotel: hotels[index])));
 
-            print('Clicked on ${hotels[index].name}');
+            // print('Clicked on ${hotels[index].name}');
           },
           child: HotelCard(hotel: hotels[index]),
         );
