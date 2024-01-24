@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import '../widget_items/drawer_menu.dart';
 
-
 class ReservationScreen extends StatefulWidget {
-  const ReservationScreen({super.key});
+  const ReservationScreen({Key? key}) : super(key: key);
 
   @override
   _ReservationScreenState createState() => _ReservationScreenState();
@@ -20,7 +19,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
     super.initState();
     // Set the default selected reservation to the non-active reservation
     selectedReservation = _data.firstWhere(
-      (item) => item.headerValue == 'Passive Reservation',
+          (item) => item.headerValue == 'Passive Reservation',
     );
   }
 
@@ -28,13 +27,28 @@ class _ReservationScreenState extends State<ReservationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.deepPurple,
-        title: const Text('Reservations'),
+        backgroundColor: Colors.green,
+        leading: Builder(
+          builder: (BuildContext context) {
+            return IconButton(
+              icon: const Icon(
+                Icons.menu,
+                color: Colors.white,
+                size: 26.0,
+              ),
+              onPressed: () => Scaffold.of(context).openDrawer(),
+            );
+          },
+        ),
+        title: const Text(
+          'Reservations',
+          style: TextStyle(color: Colors.white),
+        ),
       ),
       drawer: const DrawerMenu(),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(16.0, 0, 16.0, 16.0),
+          padding: const EdgeInsets.fromLTRB(16.0, 16.0, 16.0, 0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
@@ -51,7 +65,8 @@ class _ReservationScreenState extends State<ReservationScreen> {
                   });
                 },
                 style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.white, backgroundColor: Colors.blue,
+                  primary: Colors.green,
+                  onPrimary: Colors.white,
                 ),
                 child: const Text('Show Active Reservation'),
               ),
@@ -71,7 +86,8 @@ class _ReservationScreenState extends State<ReservationScreen> {
                   });
                 },
                 style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.white, backgroundColor: Colors.orange,
+                  primary: Colors.deepOrange,
+                  onPrimary: Colors.white,
                 ),
                 child: const Text('Show Non-Active Reservation'),
               ),
@@ -83,6 +99,10 @@ class _ReservationScreenState extends State<ReservationScreen> {
                 Card(
                   margin: const EdgeInsets.all(8.0),
                   elevation: 4,
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12.0),
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
@@ -92,11 +112,13 @@ class _ReservationScreenState extends State<ReservationScreen> {
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 18,
+                            color: Colors.green,
                           ),
                         ),
                         subtitle: Text(
                           selectedReservation!.expandedValue,
-                          style: const TextStyle(fontSize: 16),
+                          style: const TextStyle(
+                              fontSize: 16, color: Colors.black),
                         ),
                       ),
                       for (String hotel in selectedReservation!.hotels!)
@@ -115,7 +137,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
 class HotelTile extends StatelessWidget {
   final String name;
 
-  const HotelTile({super.key, required this.name});
+  const HotelTile({Key? key, required this.name}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -124,11 +146,11 @@ class HotelTile extends StatelessWidget {
       leading: Container(
         width: 60,
         height: 60,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           shape: BoxShape.circle,
           image: DecorationImage(
             image:
-                AssetImage('assets/hotel_image.jpg'), // Replace with your image
+            AssetImage('img/hotel1.jpg'), // Replace with your image
             fit: BoxFit.cover,
           ),
         ),
@@ -138,16 +160,17 @@ class HotelTile extends StatelessWidget {
         style: const TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: 16,
+          color: Colors.black,
         ),
       ),
       subtitle: const Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('City: Your City'),
-          Text('Room Type: Standard'),
+          Text('City: Your City', style: TextStyle(color: Colors.grey)),
+          Text('Room Type: Standard', style: TextStyle(color: Colors.grey)),
         ],
       ),
-      trailing: const Icon(Icons.arrow_forward),
+      trailing: const Icon(Icons.arrow_forward, color: Colors.green),
     );
   }
 }

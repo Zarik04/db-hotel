@@ -67,7 +67,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
                 ),
               ),
               currentAccountPicture: CircleAvatar(
-                radius: 50,
+                radius: 100,
                 backgroundColor: Colors.white,
                 backgroundImage: AssetImage('img/ava.jpg'),
               ),

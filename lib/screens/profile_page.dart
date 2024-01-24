@@ -23,7 +23,8 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
-        title: const Text('Profile Page'),
+        iconTheme: IconThemeData(color: Colors.white),
+        title: const Text('Profile Page',style: TextStyle(color: Colors.white),),
       ),
       drawer: const DrawerMenu(),
       body: Padding(

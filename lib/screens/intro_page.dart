@@ -48,7 +48,7 @@ class _HomeScState extends State<IntroPage> {
           Container(
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('img/mainIn.png'),
+                image: AssetImage('img/introMain.png'),
               ),
             ),
           ),
