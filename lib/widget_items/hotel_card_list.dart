@@ -15,7 +15,7 @@ class HotelCardList extends StatelessWidget {
       itemCount: hotels.length,
       itemBuilder: (context, index) {
         return GestureDetector(
-          onTap: () {
+          onTap: () async {
             Navigator.push(
                 context,
                 MaterialPageRoute(

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hotel_reservation_system/api/providers/hotel_provider.dart';
 import 'package:flutter_hotel_reservation_system/widget_items/drawer_menu.dart';
 import 'package:flutter_hotel_reservation_system/models/hotel.dart';
 import 'package:flutter_hotel_reservation_system/widget_items/hotel_card_list.dart';
 import 'package:flutter_hotel_reservation_system/widget_items/room_card.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   runApp(const HomeApp());
@@ -58,78 +60,98 @@ class DashboardPage extends StatelessWidget {
     )
   ];
 
-  static List<Hotel> hotels = [
-    Hotel(
-      name: 'The Plaza Hotel',
-      imageUrl: 'img/hotel8.jpg',
-      rating: 4.9,
-      description: 'Sample Description',
-      rooms: roomTypes,
-      location: ' New York City',
-    ),
-    Hotel(
-      name: 'Grand Lisboa',
-      imageUrl: 'img/hotel2.jpg',
-      rating: 4.2,
-      description: 'Sample Description',
-      rooms: roomTypes,
-      location: ' Macau',
-    ),
-    Hotel(
-      name: 'Hilton Worldwide',
-      imageUrl: 'img/hotel3.jpg',
-      rating: 4.0,
-      description: 'Sample Description',
-      rooms: roomTypes,
-      location: ' New York City',
-    ),
-    Hotel(
-      name: 'Grand Hyatt',
-      imageUrl: 'img/hotel4.jpg',
-      rating: 3.8,
-      description: 'Sample Description',
-      rooms: roomTypes,
-      location: ' Dubai',
-    ),
-    Hotel(
-      name: 'InterContinental',
-      imageUrl: 'img/hotel5.jpg',
-      rating: 4.7,
-      description: 'Sample Description',
-      rooms: roomTypes,
-      location: 'Lusaka',
-    ),
-    Hotel(
-      name: 'Premier Best Western',
-      imageUrl: 'img/hotel6.jpg',
-      rating: 4.2,
-      description: 'Sample Description',
-      rooms: roomTypes,
-      location: ' Florida',
-    ),
-    Hotel(
-      name: 'The Ritz-Carlton',
-      imageUrl: 'img/hotel7.jpg',
-      rating: 4.6,
-      description: 'Sample Description',
-      rooms: roomTypes,
-      location: ' Vienna',
-      
-    ),
-    Hotel(
-      name: 'The Fullerton Hotel',
-      imageUrl: 'img/hotel1.jpg',
-      rating: 3.9,
-      description: 'Sample Description',
-      rooms: roomTypes,
-      location: ' Singapore',
-    ),
-  ];
+  static List<Hotel> hotels = [];
+
+  // static List<Hotel> hotels = [
+  //   Hotel(
+  //     name: 'The Plaza Hotel',
+  //     imageUrl: 'img/hotel8.jpg',
+  //     rating: 4.9,
+  //     description: 'Sample Description',
+  //     rooms: roomTypes,
+  //     location: ' New York City',
+  //   ),
+  //   Hotel(
+  //     name: 'Grand Lisboa',
+  //     imageUrl: 'img/hotel2.jpg',
+  //     rating: 4.2,
+  //     description: 'Sample Description',
+  //     rooms: roomTypes,
+  //     location: ' Macau',
+  //   ),
+  //   Hotel(
+  //     name: 'Hilton Worldwide',
+  //     imageUrl: 'img/hotel3.jpg',
+  //     rating: 4.0,
+  //     description: 'Sample Description',
+  //     rooms: roomTypes,
+  //     location: ' New York City',
+  //   ),
+  //   Hotel(
+  //     name: 'Grand Hyatt',
+  //     imageUrl: 'img/hotel4.jpg',
+  //     rating: 3.8,
+  //     description: 'Sample Description',
+  //     rooms: roomTypes,
+  //     location: ' Dubai',
+  //   ),
+  //   Hotel(
+  //     name: 'InterContinental',
+  //     imageUrl: 'img/hotel5.jpg',
+  //     rating: 4.7,
+  //     description: 'Sample Description',
+  //     rooms: roomTypes,
+  //     location: 'Lusaka',
+  //   ),
+  //   Hotel(
+  //     name: 'Premier Best Western',
+  //     imageUrl: 'img/hotel6.jpg',
+  //     rating: 4.2,
+  //     description: 'Sample Description',
+  //     rooms: roomTypes,
+  //     location: ' Florida',
+  //   ),
+  //   Hotel(
+  //     name: 'The Ritz-Carlton',
+  //     imageUrl: 'img/hotel7.jpg',
+  //     rating: 4.6,
+  //     description: 'Sample Description',
+  //     rooms: roomTypes,
+  //     location: ' Vienna',
+  //
+  //   ),
+  //   Hotel(
+  //     name: 'The Fullerton Hotel',
+  //     imageUrl: 'img/hotel1.jpg',
+  //     rating: 3.9,
+  //     description: 'Sample Description',
+  //     rooms: roomTypes,
+  //     location: ' Singapore',
+  //   ),
+  // ];
 
   const DashboardPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+
+    hotels = [];
+    List<Hotel> tempHotels = Provider.of<HotelProvider>(context).hotels;
+
+    // for (var hotel in tempHotels) {
+    //   print('Chain ID: ${hotel.chainID} Hotel ID: ${hotel.hotelID} Hotel Name: ${hotel.name}');
+    // }
+
+    for (int i=0; i<tempHotels.length; i++){
+      Hotel hotel = tempHotels[i];
+      hotel.imageUrl = 'img/hotel${i+1}.jpg';
+      hotel.description = 'Sample Description';
+      hotel.rooms = roomTypes;
+      // hotel.location = 'Somewhere';
+      hotel.rating = 4.5;
+      hotels.add(hotel);
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,

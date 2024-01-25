@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hotel_reservation_system/screens/login_page.dart';
 import 'package:flutter_hotel_reservation_system/screens/registration_page.dart';
 
 class IntroPage extends StatefulWidget {
@@ -65,7 +66,7 @@ class _HomeScState extends State<IntroPage> {
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const RegisterPage()),
+                    MaterialPageRoute(builder: (context) => const LoginPage()),
                   );
                 },
                 child: const Padding(

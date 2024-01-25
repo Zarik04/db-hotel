@@ -4,7 +4,7 @@ import 'package:flutter_hotel_reservation_system/models/hotel.dart';
 class HotelCard extends StatelessWidget {
   final Hotel hotel;
 
-  const HotelCard({Key? key, required this.hotel}) : super(key: key);
+  const HotelCard({super.key, required this.hotel});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class HotelCard extends StatelessWidget {
                 topRight: Radius.circular(10),
               ),
               child: Image.asset(
-                hotel.imageUrl,
+                hotel.imageUrl!,
                 height: screenHeight * 0.7, // Adjust the percentage as needed
                 fit: BoxFit.cover,
               ),
@@ -37,7 +37,7 @@ class HotelCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    hotel.name,
+                    hotel.name!,
                     style: TextStyle(
                       color: Colors.green.shade700,
                       fontSize: 22,

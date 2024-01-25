@@ -11,7 +11,7 @@ class HotelPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          hotel.name,
+          hotel.name!,
           style: const TextStyle(color: Colors.white),
         ),
         backgroundColor: Colors.green,
@@ -22,7 +22,7 @@ class HotelPage extends StatelessWidget {
           SizedBox(
             height: 300.0,
             child: Image.asset(
-              hotel.imageUrl,
+              hotel.imageUrl!,
               fit: BoxFit.cover,
             ),
           ),
@@ -30,7 +30,7 @@ class HotelPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              hotel.description,
+              hotel.description!,
               style: const TextStyle(fontSize: 16.0),
             ),
           ),
@@ -49,7 +49,7 @@ class HotelPage extends StatelessWidget {
                   'Accommodation Types',
                   style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
                 ),
-                ...hotel.rooms
+                ...hotel.rooms!
               ],
             ),
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hotel_reservation_system/screens/reservations_page.dart';
 
 class BookingDetailsScreen extends StatelessWidget {
   final String roomType;
@@ -107,7 +108,7 @@ class BookingDetailsScreen extends StatelessWidget {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.pop(context);
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const ReservationScreen()));
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.green,

@@ -14,7 +14,7 @@ class UserProvider with ChangeNotifier {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String? userToken = prefs.getString('userToken');
     final response = await http.get(
-      Uri.parse('http://127.0.0.1:8000/user/'),
+      Uri.parse('http://127.0.0.1:8000/auth/user/'),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Token $userToken',

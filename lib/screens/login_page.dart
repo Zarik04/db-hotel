@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hotel_reservation_system/api/auth.dart';
+import 'package:flutter_hotel_reservation_system/api/providers/hotel_provider.dart';
 import 'package:flutter_hotel_reservation_system/screens/registration_page.dart';
 import 'package:flutter_hotel_reservation_system/screens/dashboard.dart';
 import 'package:flutter_hotel_reservation_system/widget_items/custom_text_field.dart';
@@ -160,6 +161,7 @@ class _LoginPageState extends State<LoginPage> {
                               prefs.setString('userToken', token);
 
                               await Provider.of<UserProvider>(context, listen: false).fetchAndSetUser();
+                              await Provider.of<HotelProvider>(context, listen: false).fetchHotels();
 
                               Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardPage()));
 

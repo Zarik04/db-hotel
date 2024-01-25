@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hotel_reservation_system/api/auth.dart';
+import 'package:flutter_hotel_reservation_system/api/providers/hotel_provider.dart';
 import 'package:flutter_hotel_reservation_system/api/providers/user_provider.dart';
 import 'package:flutter_hotel_reservation_system/models/guest.dart';
 import 'package:flutter_hotel_reservation_system/screens/login_page.dart';
@@ -113,6 +114,7 @@ class _DrawerMenuState extends State<DrawerMenu> {
                   await SharedPreferences.getInstance();
               await prefs.remove('userToken');
               Provider.of<UserProvider>(context, listen: false).removeUser();
+              Provider.of<HotelProvider>(context, listen: false).clean();
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const LoginPage()),
