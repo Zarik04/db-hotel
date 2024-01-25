@@ -147,7 +147,6 @@ class DashboardPage extends StatelessWidget {
       hotel.imageUrl = 'img/hotel${i+1}.jpg';
       hotel.description = 'Sample Description';
       hotel.rooms = roomTypes;
-      // hotel.location = 'Somewhere';
       hotel.rating = 4.5;
       hotels.add(hotel);
     }

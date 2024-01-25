@@ -163,6 +163,7 @@ class _LoginPageState extends State<LoginPage> {
                               await Provider.of<UserProvider>(context, listen: false).fetchAndSetUser();
                               await Provider.of<HotelProvider>(context, listen: false).fetchHotels();
 
+
                               Navigator.push(context, MaterialPageRoute(builder: (context) => DashboardPage()));
 
 

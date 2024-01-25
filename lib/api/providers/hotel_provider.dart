@@ -1,8 +1,9 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_hotel_reservation_system/api/providers/room_provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter_hotel_reservation_system/models/hotel.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HotelProvider with ChangeNotifier {
@@ -40,6 +41,7 @@ class HotelProvider with ChangeNotifier {
             'Authorization': 'Token $userToken',
           },
         );
+
         var res_json = jsonDecode(res.body);
         hotel.location =
             '${res_json['address']}, ${res_json['city']}, ${res_json['state']}';
@@ -58,5 +60,4 @@ class HotelProvider with ChangeNotifier {
     _hotels = [];
     notifyListeners();
   }
-
 }
