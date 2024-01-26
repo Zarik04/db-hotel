@@ -1,13 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hotel_reservation_system/api/providers/user_provider.dart';
+import 'package:flutter_hotel_reservation_system/api/reservation.dart';
+import 'package:flutter_hotel_reservation_system/models/guest.dart';
+import 'package:flutter_hotel_reservation_system/models/room.dart';
+import 'package:provider/provider.dart';
 
 import 'booking_detail.dart';
 
 class PaymentScreen extends StatefulWidget {
+  Rooms? room;
   final String roomType;
   final List<String> roomImages;
+  final double roomPrice;
 
-  const PaymentScreen(
-      {super.key, required this.roomType, required this.roomImages});
+  PaymentScreen(
+      {super.key,
+      this.room,
+      required this.roomType,
+      required this.roomImages,
+      required this.roomPrice});
 
   @override
   _PaymentScreenState createState() => _PaymentScreenState();
@@ -107,25 +118,48 @@ class _PaymentScreenState extends State<PaymentScreen> {
     );
   }
 
-  void _handlePayment(BuildContext context) {
+  void _handlePayment(BuildContext context) async {
     double amount = double.tryParse(_amountController.text) ?? 0.0;
+
+    if (amount == widget.roomPrice) {
+      Map<String, dynamic> paymentData = {
+        "amount": amount,
+        "payment_method": "cash",
+        "invoice_number": "INV12346",
+        "status": false,
+        "payment_date": "2024-01-25",
+        "description": "Just test payment"
+      };
+      var response = await ReservationAPI.makePayment(paymentData);
+      print(response);
+      DateTime now = DateTime.now();
+      final Guest guest = Provider.of<UserProvider>(context, listen: false).user;
+      Map<String, dynamic> reservationData = {
+        "guest_id": guest.uid,
+        "chain_id": widget.room?.chainId,
+        "hotel_id": widget.room?.hotelId,
+        "room_no": widget.room?.roomNo,
+        "check_in_date": "${now.year}-${now.month}-${now.day}",
+        "payment_id": response['payment_id']
+      };
+      var res = await ReservationAPI.makeReservation(reservationData);
+      print(res);
+    }
 
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
           title: const Text('Payment Result'),
-          content: Text(amount > 0
+          content: Text(amount == widget.roomPrice
               ? 'Payment Successful\nAmount: \$${amount.toStringAsFixed(2)}'
               : 'Invalid Amount. Please enter a valid amount.'),
           actions: [
             TextButton(
               onPressed: () {
                 Navigator.of(context).pop();
-                if (amount > 0) {
+                if (amount == widget.roomPrice) {
                   _showBookingDetails(context, amount);
-                } else {
-                  Navigator.of(context).pop();
                 }
               },
               child: const Text('Close'),

@@ -19,18 +19,6 @@ class DrawerMenu extends StatefulWidget {
 }
 
 class _DrawerMenuState extends State<DrawerMenu> {
-  // Guest guest = await guestCreate();
-
-  // Guest guest = Guest(
-  //     imagePath: 'img/ava.jpg',
-  //     firstName: 'Zarshedjon',
-  //     lastName: 'Nasimov',
-  //     birthDate: '2004-06-29',
-  //     phone: '998944709937',
-  //     gender: 'Male',
-  //     password: 'strong_password',
-  //     email: 'zarshed@gmail.com'
-  // );
 
   @override
   Widget build(BuildContext context) {

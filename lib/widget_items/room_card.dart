@@ -119,7 +119,7 @@ class RoomTypeCard extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => PaymentScreen(roomType: room.description!, roomImages: images),
+        builder: (context) => PaymentScreen(room: room, roomType: room.description!, roomImages: images, roomPrice: room.price!,),
       ),
     );
   }

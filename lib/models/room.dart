@@ -1,4 +1,6 @@
 class Rooms {
+  String? chainId;
+  String? hotelId;
   String? roomNo;
   int? maxCapacity;
   int? availableSpace;
@@ -9,6 +11,8 @@ class Rooms {
   String? description;
 
   Rooms({
+    this.chainId,
+    this.hotelId,
     this.roomNo,
     this.maxCapacity,
     this.availableSpace,
@@ -21,6 +25,8 @@ class Rooms {
 
   factory Rooms.fromJson(Map<String, dynamic> json) {
     return Rooms(
+      chainId: json['chain_id'],
+      hotelId: json['hotel_id'],
       roomNo: json['room_no'],
       maxCapacity: json['max_capacity'],
       availableSpace: json['available_space'],
