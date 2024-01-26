@@ -30,7 +30,7 @@ class RoomProvider with ChangeNotifier {
 
       if (response.statusCode == 200) {
         List<dynamic> json = jsonDecode(response.body);
-        print(json);
+        // print(json);
 
         for (var element in json) {
           var room = Rooms.fromJson(element);
@@ -42,7 +42,10 @@ class RoomProvider with ChangeNotifier {
             },
           );
           var resJson = jsonDecode(res.body);
-          print(resJson);
+          room.roomType = resJson['room_type'];
+          room.description = resJson['description'];
+          room.price = resJson['price'];
+          // print(resJson);
           loadedRooms.add(room);
         }
       } else {

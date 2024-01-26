@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hotel_reservation_system/models/room.dart';
 import 'package:flutter_hotel_reservation_system/screens/payment_page.dart';
-import 'dart:math';
-
 
 class RoomTypeCard extends StatelessWidget {
-  final String type;
-  final String description;
-  final List<String> images;
-  final String guests;
+  final Rooms room;
 
-  const RoomTypeCard(this.type, this.description, this.images, this.guests,
+  final List<String> images;
+
+  const RoomTypeCard(this.room, this.images,
       {super.key});
 
   @override
@@ -22,13 +20,13 @@ class RoomTypeCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              type,
+              room.description!,
               style:
               const TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 8.0),
             Text(
-              description,
+              room.roomType!,
               style: const TextStyle(fontSize: 16.0),
             ),
             const SizedBox(height: 8.0),
@@ -57,7 +55,7 @@ class RoomTypeCard extends StatelessWidget {
             ),
             const SizedBox(height: 8.0),
             Text(
-              'Number of guests: $guests',
+              'Number of guests: ${room.maxCapacity}',
               style: const TextStyle(fontSize: 16.0),
             ),
             const SizedBox(height: 8.0),
@@ -95,8 +93,7 @@ class RoomTypeCard extends StatelessWidget {
   }
 
   void _handleShowPricesClick(BuildContext context) {
-    final Random random = Random();
-    final double randomPrice = random.nextDouble() * 100.0;
+    final double randomPrice = room.price!;
 
     showDialog(
       context: context,
@@ -122,7 +119,7 @@ class RoomTypeCard extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => PaymentScreen(roomType: type, roomImages: images),
+        builder: (context) => PaymentScreen(roomType: room.description!, roomImages: images),
       ),
     );
   }
