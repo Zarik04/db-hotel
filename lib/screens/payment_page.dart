@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hotel_reservation_system/api/providers/user_provider.dart';
 import 'package:flutter_hotel_reservation_system/api/reservation.dart';
@@ -122,10 +124,13 @@ class _PaymentScreenState extends State<PaymentScreen> {
     double amount = double.tryParse(_amountController.text) ?? 0.0;
 
     if (amount == widget.roomPrice) {
+      var rng = Random();
+      int randomNumber = rng.nextInt(900000) + 100000;  // Generates a random integer between 100000 and 999999
+      String invoiceNumber = 'INV$randomNumber';
       Map<String, dynamic> paymentData = {
         "amount": amount,
         "payment_method": "cash",
-        "invoice_number": "INV12346",
+        "invoice_number": invoiceNumber,
         "status": false,
         "payment_date": "2024-01-25",
         "description": "Just test payment"

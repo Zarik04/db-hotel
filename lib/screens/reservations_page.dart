@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hotel_reservation_system/api/providers/reservations_provider.dart';
+import 'package:flutter_hotel_reservation_system/models/reservation.dart';
+import 'package:provider/provider.dart';
 import '../widget_items/drawer_menu.dart';
 
 class ReservationScreen extends StatefulWidget {
-  const ReservationScreen({Key? key}) : super(key: key);
+  const ReservationScreen({super.key});
 
   @override
   _ReservationScreenState createState() => _ReservationScreenState();
 }
 
 class _ReservationScreenState extends State<ReservationScreen> {
-  final List<Item> _data = generateItems();
+  late List<Reservation> reservations;
+  late List<Item> _data;
 
   // Track the selected reservation
   Item? selectedReservation;
@@ -17,9 +21,11 @@ class _ReservationScreenState extends State<ReservationScreen> {
   @override
   void initState() {
     super.initState();
+    reservations = Provider.of<ReservationsProvider>(context, listen: false).reservations;
+    _data = generateItems(reservations);
     // Set the default selected reservation to the non-active reservation
     selectedReservation = _data.firstWhere(
-          (item) => item.headerValue == 'Passive Reservation',
+      (item) => item.headerValue == 'Active Reservation',
     );
   }
 
@@ -56,7 +62,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
                 onPressed: () {
                   // Find the active reservation
                   Item activeReservation = _data.firstWhere(
-                        (item) => item.headerValue == 'Active Reservation',
+                    (item) => item.headerValue == 'Active Reservation',
                   );
 
                   // Set the selected reservation
@@ -65,8 +71,8 @@ class _ReservationScreenState extends State<ReservationScreen> {
                   });
                 },
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.green,
-                  onPrimary: Colors.white,
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.green,
                 ),
                 child: const Text('Show Active Reservation'),
               ),
@@ -77,7 +83,7 @@ class _ReservationScreenState extends State<ReservationScreen> {
                 onPressed: () {
                   // Find the non-active reservation
                   Item nonActiveReservation = _data.firstWhere(
-                        (item) => item.headerValue == 'Passive Reservation',
+                    (item) => item.headerValue == 'Passive Reservation',
                   );
 
                   // Set the selected reservation
@@ -86,8 +92,8 @@ class _ReservationScreenState extends State<ReservationScreen> {
                   });
                 },
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.deepOrange,
-                  onPrimary: Colors.white,
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.deepOrange,
                 ),
                 child: const Text('Show Non-Active Reservation'),
               ),
@@ -121,8 +127,8 @@ class _ReservationScreenState extends State<ReservationScreen> {
                               fontSize: 16, color: Colors.black),
                         ),
                       ),
-                      for (String hotel in selectedReservation!.hotels!)
-                        HotelTile(name: hotel),
+                      for (Reservation res in selectedReservation!.hotels!)
+                        HotelTile(name: res.hotelName!, roomNo: res.roomNumber!, roomType: res.roomType!,),
                     ],
                   ),
                 ),
@@ -136,8 +142,9 @@ class _ReservationScreenState extends State<ReservationScreen> {
 
 class HotelTile extends StatelessWidget {
   final String name;
-
-  const HotelTile({Key? key, required this.name}) : super(key: key);
+  final String roomNo;
+  final String roomType;
+  const HotelTile({super.key, required this.name, required this.roomNo, required this.roomType});
 
   @override
   Widget build(BuildContext context) {
@@ -146,11 +153,10 @@ class HotelTile extends StatelessWidget {
       leading: Container(
         width: 60,
         height: 60,
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           shape: BoxShape.circle,
           image: DecorationImage(
-            image:
-            AssetImage('img/hotel1.jpg'), // Replace with your image
+            image: AssetImage('img/hotel1.jpg'), // Replace with your image
             fit: BoxFit.cover,
           ),
         ),
@@ -163,11 +169,11 @@ class HotelTile extends StatelessWidget {
           color: Colors.black,
         ),
       ),
-      subtitle: const Column(
+      subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('City: Your City', style: TextStyle(color: Colors.grey)),
-          Text('Room Type: Standard', style: TextStyle(color: Colors.grey)),
+          Text('Room No: $roomNo', style: const TextStyle(color: Colors.grey)),
+          Text('Room Type: $roomType', style: const TextStyle(color: Colors.grey)),
         ],
       ),
       trailing: const Icon(Icons.arrow_forward, color: Colors.green),
@@ -184,20 +190,20 @@ class Item {
 
   String expandedValue;
   String headerValue;
-  List<String>? hotels;
+  List<Reservation>? hotels;
 }
 
-List<Item> generateItems() {
+List<Item> generateItems(List<Reservation> reservations) {
   return [
     Item(
       headerValue: 'Active Reservation',
       expandedValue: 'Where you want to stay?',
-      hotels: generateRandomHotels(5),
+      hotels: reservations,
     ),
     Item(
       headerValue: 'Passive Reservation',
       expandedValue: 'List of hotels you have been to',
-      hotels: generateRandomHotels(3),
+      hotels: [],
     ),
   ];
 }

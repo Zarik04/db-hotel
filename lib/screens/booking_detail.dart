@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hotel_reservation_system/api/providers/reservations_provider.dart';
+import 'package:flutter_hotel_reservation_system/api/providers/user_provider.dart';
+import 'package:flutter_hotel_reservation_system/models/guest.dart';
 import 'package:flutter_hotel_reservation_system/screens/reservations_page.dart';
+import 'package:provider/provider.dart';
 
 class BookingDetailsScreen extends StatelessWidget {
   final String roomType;
@@ -107,7 +111,9 @@ class BookingDetailsScreen extends StatelessWidget {
                     height: 29,
                   ),
                   ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
+                      final Guest guest = Provider.of<UserProvider>(context, listen: false).user;
+                      await Provider.of<ReservationsProvider>(context, listen: false).fetchReservations(guest.uid!);
                       Navigator.push(context, MaterialPageRoute(builder: (context) => const ReservationScreen()));
                     },
                     style: ElevatedButton.styleFrom(

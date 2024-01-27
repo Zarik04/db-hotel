@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hotel_reservation_system/api/auth.dart';
 import 'package:flutter_hotel_reservation_system/api/providers/hotel_provider.dart';
+import 'package:flutter_hotel_reservation_system/api/providers/reservations_provider.dart';
 import 'package:flutter_hotel_reservation_system/api/providers/user_provider.dart';
 import 'package:flutter_hotel_reservation_system/models/guest.dart';
 import 'package:flutter_hotel_reservation_system/screens/login_page.dart';
@@ -19,7 +20,6 @@ class DrawerMenu extends StatefulWidget {
 }
 
 class _DrawerMenuState extends State<DrawerMenu> {
-
   @override
   Widget build(BuildContext context) {
     final Guest guest = Provider.of<UserProvider>(context).user;
@@ -67,10 +67,35 @@ class _DrawerMenuState extends State<DrawerMenu> {
               guest: guest,
             ),
           ),
-          const DrawerItem(
-            itemName: 'Reservations',
-            iconName: Icons.list_alt_rounded,
-            routeToPage: ReservationScreen(),
+          // const DrawerItem(
+          //   itemName: 'Reservations',
+          //   iconName: Icons.list_alt_rounded,
+          //   routeToPage: ReservationScreen(),
+          // ),
+          ListTile(
+            title: Text(
+              'Reservations',
+              style: TextStyle(
+                color: Colors.green[500],
+                fontWeight: FontWeight.w800,
+                fontSize: 16.0,
+              ),
+            ),
+            leading: const Icon(
+              Icons.list_alt_rounded,
+              color: Colors.green,
+              size: 30.0,
+            ),
+            onTap: () async {
+              await Provider.of<ReservationsProvider>(context, listen: false)
+                  .fetchReservations(guest.uid!);
+
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const ReservationScreen()),
+              );
+            },
           ),
           const DrawerItem(
             itemName: 'Help',
