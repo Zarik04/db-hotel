@@ -66,11 +66,11 @@ class ReservationsProvider with ChangeNotifier {
         reservation.roomType = room_type['room_type'];
         reservation.price = room_type['price'];
 
-        print('hotel: ${reservation.hotelName}\n'
-            'room_no: ${reservation.roomNumber}\n'
-            'type: ${reservation.roomType}\n'
-            'description: ${reservation.description}\n'
-            'price: ${reservation.price}\n');
+        // print('hotel: ${reservation.hotelName}\n'
+        //     'room_no: ${reservation.roomNumber}\n'
+        //     'type: ${reservation.roomType}\n'
+        //     'description: ${reservation.description}\n'
+        //     'price: ${reservation.price}\n');
         loadedReservations.add(reservation);
       }
     } else {

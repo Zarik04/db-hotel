@@ -136,7 +136,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
         "description": "Just test payment"
       };
       var response = await ReservationAPI.makePayment(paymentData);
-      print(response);
+      // print(response);
       DateTime now = DateTime.now();
       final Guest guest = Provider.of<UserProvider>(context, listen: false).user;
       Map<String, dynamic> reservationData = {
@@ -148,7 +148,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
         "payment_id": response['payment_id']
       };
       var res = await ReservationAPI.makeReservation(reservationData);
-      print(res);
+      // print(res);
     }
 
     showDialog(

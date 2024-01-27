@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hotel_reservation_system/api/providers/user_provider.dart';
+import 'package:flutter_hotel_reservation_system/api/providers/reservations_provider.dart';
 import 'package:flutter_hotel_reservation_system/screens/reservations_page.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/guest.dart';
 import '../widget_items/drawer_menu.dart';
@@ -26,7 +25,7 @@ class _ProfilePageState extends State<ProfilePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
         title: const Text('Profile Page',style: TextStyle(color: Colors.white),),
       ),
       drawer: const DrawerMenu(),
@@ -142,63 +141,24 @@ class _ProfilePageState extends State<ProfilePage> {
                   )
                 ],
               ),
-              // const SizedBox(
-              //   height: 8,
-              // ),
-              // Row(
-              //   children: [
-              //     const Text(
-              //       'Password:',
-              //       style: TextStyle(
-              //         color: ProfilePage.labelThemeColor,
-              //         fontSize: 25,
-              //         fontWeight: FontWeight.w600,
-              //       ),
-              //     ),
-              //     const SizedBox(
-              //       width: 10,
-              //     ),
-              //     Text(
-              //       ProfilePage.isPasswordHidden
-              //           ? '*' * widget.guest.password!.length
-              //           : widget.guest.password!,
-              //       style: TextStyle(
-              //         fontSize: 20,
-              //         color: ProfilePage.valueThemeColor,
-              //         fontWeight: FontWeight.w400,
-              //       ),
-              //     ),
-              //     const SizedBox(
-              //       width: 15,
-              //     ),
-              //     IconButton.filled(
-              //       splashColor: Colors.transparent,
-              //       highlightColor: Colors.transparent,
-              //       onPressed: () {
-              //         setState(() {
-              //           ProfilePage.isPasswordHidden = !ProfilePage.isPasswordHidden;
-              //         });
-              //       },
-              //       icon: Icon(
-              //         ProfilePage.isPasswordHidden? Icons.visibility:Icons.visibility_off,
-              //       ),
-              //     )
-              //   ],
-              // ),
               const SizedBox(height: 24),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   backgroundColor: ProfilePage.labelThemeColor,
                   padding: const EdgeInsets.all(15.0),
                 ),
-                onPressed: () {
+                onPressed: () async {
+                  await Provider.of<ReservationsProvider>(context, listen: false)
+                      .fetchReservations(widget.guest.uid!);
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) => const ReservationScreen()),
                   );
                 },
-                child: const Text('View Reservation History'),
+                child: const Text('View Reservation History', style: TextStyle(
+                  color: Colors.white,
+                ),),
               ),
             ],
           ),
